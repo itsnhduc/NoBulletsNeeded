@@ -23,8 +23,7 @@ GameObject:
   - component: {fileID: 50259046925266874}
   - component: {fileID: 61015516235884512}
   - component: {fileID: 58294079746852438}
-  - component: {fileID: 114756440192496802}
-  - component: {fileID: 114158577456697986}
+  - component: {fileID: 114507538743135694}
   m_Layer: 0
   m_Name: Adam
   m_TagString: Untagged
@@ -135,8 +134,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.64, y: 0.9}
-  m_EdgeRadius: 0
+  m_Size: {x: 0.59, y: 0.87}
+  m_EdgeRadius: 0.03
 --- !u!95 &95338804972826142
 Animator:
   serializedVersion: 3
@@ -154,18 +153,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114158577456697986
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1139146177787764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 261931cfed0a1954489a04d53dcd4dfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pulseMag: 1000
 --- !u!114 &114430265028086764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -178,7 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interval: 0.4
---- !u!114 &114756440192496802
+--- !u!114 &114507538743135694
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -186,12 +173,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1139146177787764}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e0beb73edeebe24c9ab2ee1917a096a, type: 3}
+  m_Script: {fileID: 11500000, guid: 98ec1a26e79ea7c4a966c6d05ab86368, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundMoveSpeed: 3
-  airMoveSpeed: 1.2
+  groundMoveSpeed: 4
+  airMoveSpeed: 2
   jumpMultiplier: 430
+  pulseMag: 1000
 --- !u!212 &212180410316215664
 SpriteRenderer:
   m_ObjectHideFlags: 1

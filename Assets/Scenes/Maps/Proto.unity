@@ -283,31 +283,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 114756440192496802, guid: a3c987dfc27d3654fa129c217a52d54d,
-        type: 2}
-      propertyPath: groundMoveSpeed
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114756440192496802, guid: a3c987dfc27d3654fa129c217a52d54d,
-        type: 2}
-      propertyPath: airMoveSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 61015516235884512, guid: a3c987dfc27d3654fa129c217a52d54d,
-        type: 2}
-      propertyPath: m_EdgeRadius
-      value: 0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 61015516235884512, guid: a3c987dfc27d3654fa129c217a52d54d,
-        type: 2}
-      propertyPath: m_Size.x
-      value: 0.59
-      objectReference: {fileID: 0}
-    - target: {fileID: 61015516235884512, guid: a3c987dfc27d3654fa129c217a52d54d,
-        type: 2}
-      propertyPath: m_Size.y
-      value: 0.87
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a3c987dfc27d3654fa129c217a52d54d, type: 2}
   m_IsPrefabParent: 0
