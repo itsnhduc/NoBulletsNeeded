@@ -22,12 +22,12 @@ public class Adam : Hero
     private readonly List<string> _affected = new List<string> { "Interactive" };
     private bool _isGrounded = false;
     private bool _hasJumped = false;
-    private bool[] _onCooldown = { false, false }; // { orb, pulse }
 
 
     // Abilities
-    private List<GameObject> _inRangePool = new List<GameObject>();
+    private List<GameObject> _inRangeObjs = new List<GameObject>();
     private GameObject _pulse;
+    private bool[] _onCooldown = { false, false }; // { orb, pulse }
 
     void Start()
     {
@@ -52,19 +52,19 @@ public class Adam : Hero
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D other)
     {
-        if (_affected.Contains(other.tag) && !_inRangePool.Find(obj => obj.name == other.name))
+        if (_affected.Contains(other.tag) && !_inRangeObjs.Contains(other.gameObject))
         {
-            _inRangePool.Add(other.gameObject);
+            _inRangeObjs.Add(other.gameObject);
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (_affected.Contains(other.tag))
+        if (_affected.Contains(other.tag) && _inRangeObjs.Contains(other.gameObject))
         {
-            _inRangePool = _inRangePool.Where(obj => obj.name != other.name).ToList();
+            _inRangeObjs.Remove(other.gameObject);
         }
     }
 
@@ -110,7 +110,7 @@ public class Adam : Hero
     {
         if (!_onCooldown[1])
         {
-            _inRangePool.ForEach(obj =>
+            _inRangeObjs.ForEach(obj =>
             {
                 Vector2 diff = obj.transform.position - transform.position;
                 obj.GetComponent<Rigidbody2D>().AddForce(diff.normalized * pulseMag);
