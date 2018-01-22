@@ -16,7 +16,8 @@ public class Adam : Hero
 
     // Movements
     private Rigidbody2D _rb;
-    private readonly List<string> _jumpable = new List<string> { "Ground", "Interactive" };
+    private readonly List<string> _jumpable = new List<string> { "Ground" };
+    private readonly List<string> _affected = new List<string> { "Interactive" };
     private bool _isGrounded = false;
     private bool _hasJumped = false;
     private bool[] _onCooldown = { false, false };
@@ -43,7 +44,7 @@ public class Adam : Hero
 
     void OnCollisionExit2D(Collision2D other)
     {
-        if (_jumpable.Contains(other.collider.tag) && _rb.velocity.y > 0.001f)
+        if (_jumpable.Contains(other.collider.tag) && Mathf.Abs(_rb.velocity.y) > 0.001f)
         {
             _isGrounded = false;
         }
@@ -51,7 +52,7 @@ public class Adam : Hero
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Interactive" && !_inRangePool.Find(obj => obj.name == other.name))
+        if (_affected.Contains(other.tag) && !_inRangePool.Find(obj => obj.name == other.name))
         {
             _inRangePool.Add(other.gameObject);
         }
@@ -59,7 +60,7 @@ public class Adam : Hero
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "Interactive")
+        if (_affected.Contains(other.tag))
         {
             _inRangePool = _inRangePool.Where(obj => obj.name != other.name).ToList();
         }
@@ -71,6 +72,7 @@ public class Adam : Hero
         {
             _hasJumped = true;
             _rb.AddForce(Vector2.up * jumpMultiplier);
+            _isGrounded = false;
         }
     }
 
@@ -85,9 +87,13 @@ public class Adam : Hero
         _rb.transform.rotation = Quaternion.Euler(curRotation.x, yRotation, curRotation.z);
     }
 
-    protected override void Ability1(bool mouseLeft = false)
+    protected override void Ability1()
     {
-        print(_onCooldown[0]);
+        // do stuff
+    }
+
+    protected override void Ability2()
+    {
         if (!_onCooldown[0])
         {
             _inRangePool.ForEach(obj =>
@@ -100,12 +106,7 @@ public class Adam : Hero
         }
     }
 
-    protected override void Ability2(bool mouseLeft = false)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    protected override void Ultimate(bool mouseLeft = false)
+    protected override void Ultimate()
     {
         throw new System.NotImplementedException();
     }

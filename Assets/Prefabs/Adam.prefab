@@ -178,7 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundMoveSpeed: 4
   airMoveSpeed: 2
-  jumpMultiplier: 430
+  jumpMultiplier: 380
   ability1Cooldown: 1
   ability2Cooldown: 5
   pulseMag: 1000

@@ -30,8 +30,8 @@ public abstract class Hero : MonoBehaviour
     protected abstract void Move(bool isLeft);
 
     // Abilities behaviors
-    protected abstract void Ability1(bool mouseLeft = false);
-    protected abstract void Ability2(bool mouseLeft = false);
-    protected abstract void Ultimate(bool mouseLeft = false);
+    protected abstract void Ability1();
+    protected abstract void Ability2();
+    protected abstract void Ultimate();
     protected abstract IEnumerator StartCooldown(int ability);
 }
