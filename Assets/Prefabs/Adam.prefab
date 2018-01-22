@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d3c5c77df93ad43ab1056dddb37c7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interval: 0.4
+  interval: 0.3
 --- !u!114 &114507538743135694
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -179,8 +179,8 @@ MonoBehaviour:
   groundMoveSpeed: 4
   airMoveSpeed: 2
   jumpMultiplier: 380
-  ability1Cooldown: 5
-  ability2Cooldown: 1
+  orbCooldown: 5
+  pulseCooldown: 1
   orbPrefab: {fileID: 1689176732733050, guid: 80e2a9e517bb91d4a85cf6e286b4f729, type: 2}
   orbSpeed: 80
   pulseMag: 800

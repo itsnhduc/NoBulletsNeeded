@@ -70,7 +70,6 @@ public class Adam : Hero
 
     protected override void Jump()
     {
-        print(_isGrounded + " - " + !_hasJumped);
         if (_isGrounded && !_hasJumped)
         {
             _hasJumped = true;
@@ -103,8 +102,8 @@ public class Adam : Hero
             orb.name = "AdamOrb";
             Vector2 dir = _rb.transform.rotation.y == 0 ? Vector2.right : Vector2.left;
             orb.GetComponent<Rigidbody2D>().AddForce(dir * orbSpeed);
+            StartCoroutine(StartCooldown(0));
         }
-        StartCoroutine(StartCooldown(0));
     }
 
     protected override void Ability2()
@@ -130,7 +129,6 @@ public class Adam : Hero
     {
         _onCooldown[ability] = true;
         yield return new WaitForSeconds(ability == 0 ? orbCooldown : pulseCooldown);
-        print("Ability " + ability + " off cooldown.");
         _onCooldown[ability] = false;
     }
 }
