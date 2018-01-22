@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class Hero : MonoBehaviour
 {
 
-    void FixedUpdate()
+    void Update()
     {
         // Movements input
         bool jumpKey = Input.GetKey(KeyCode.W);
