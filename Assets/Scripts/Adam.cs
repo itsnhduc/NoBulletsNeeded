@@ -10,8 +10,8 @@ public class Adam : Hero
     public float airMoveSpeed;
     public float jumpMultiplier;
     [Header("Abilities")]
-    public float ability1Cooldown;
-    public float ability2Cooldown;
+    public float orbCooldown;
+    public float pulseCooldown;
     public GameObject orbPrefab;
     public float orbSpeed;
     public float pulseMag;
@@ -22,7 +22,7 @@ public class Adam : Hero
     private readonly List<string> _affected = new List<string> { "Interactive" };
     private bool _isGrounded = false;
     private bool _hasJumped = false;
-    private bool[] _onCooldown = { false, false };
+    private bool[] _onCooldown = { false, false }; // { orb, pulse }
 
 
     // Abilities
@@ -70,6 +70,7 @@ public class Adam : Hero
 
     protected override void Jump()
     {
+        print(_isGrounded + " - " + !_hasJumped);
         if (_isGrounded && !_hasJumped)
         {
             _hasJumped = true;
@@ -128,7 +129,7 @@ public class Adam : Hero
     protected override IEnumerator StartCooldown(int ability)
     {
         _onCooldown[ability] = true;
-        yield return new WaitForSeconds(ability == 0 ? ability1Cooldown : ability2Cooldown);
+        yield return new WaitForSeconds(ability == 0 ? orbCooldown : pulseCooldown);
         print("Ability " + ability + " off cooldown.");
         _onCooldown[ability] = false;
     }
