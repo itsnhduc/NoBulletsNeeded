@@ -1,6 +1,8 @@
+using System.Collections;
 using UnityEngine;
 
-public abstract class Hero : MonoBehaviour {
+public abstract class Hero : MonoBehaviour
+{
 
     void FixedUpdate()
     {
@@ -22,6 +24,7 @@ public abstract class Hero : MonoBehaviour {
         if (ultimateKey) this.Ultimate();
     }
 
+
     // Movements behaviors
     protected abstract void Jump();
     protected abstract void Move(bool isLeft);
@@ -30,4 +33,5 @@ public abstract class Hero : MonoBehaviour {
     protected abstract void Ability1(bool mouseLeft = false);
     protected abstract void Ability2(bool mouseLeft = false);
     protected abstract void Ultimate(bool mouseLeft = false);
+    protected abstract IEnumerator StartCooldown(int ability);
 }

@@ -10,13 +10,17 @@ public class Adam : Hero
     public float airMoveSpeed;
     public float jumpMultiplier;
     [Header("Abilities")]
+    public float ability1Cooldown;
+    public float ability2Cooldown;
     public float pulseMag;
 
     // Movements
+    private Rigidbody2D _rb;
     private readonly List<string> _jumpable = new List<string> { "Ground", "Interactive" };
     private bool _isGrounded = false;
     private bool _hasJumped = false;
-    private Rigidbody2D _rb;
+    private bool[] _onCooldown = { false, false };
+
 
     // Abilities
     private List<GameObject> _inRangePool = new List<GameObject>();
@@ -83,12 +87,17 @@ public class Adam : Hero
 
     protected override void Ability1(bool mouseLeft = false)
     {
-        _inRangePool.ForEach(obj =>
+        print(_onCooldown[0]);
+        if (!_onCooldown[0])
         {
-            Vector2 diff = obj.transform.position - transform.position;
-            obj.GetComponent<Rigidbody2D>().AddForce(diff.normalized * pulseMag / diff.magnitude);
-        });
-        _pulse.GetComponent<Flasher>().Flash();
+            _inRangePool.ForEach(obj =>
+            {
+                Vector2 diff = obj.transform.position - transform.position;
+                obj.GetComponent<Rigidbody2D>().AddForce(diff.normalized * pulseMag);
+            });
+            _pulse.GetComponent<Flasher>().Flash();
+            StartCoroutine(StartCooldown(0));
+        }
     }
 
     protected override void Ability2(bool mouseLeft = false)
@@ -99,5 +108,12 @@ public class Adam : Hero
     protected override void Ultimate(bool mouseLeft = false)
     {
         throw new System.NotImplementedException();
+    }
+
+    protected override IEnumerator StartCooldown(int ability)
+    {
+        _onCooldown[ability] = true;
+        yield return new WaitForSeconds(ability == 0 ? ability1Cooldown : ability2Cooldown);
+        _onCooldown[ability] = false;
     }
 }

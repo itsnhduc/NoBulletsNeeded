@@ -68,8 +68,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1139146177787764}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.47, y: -2.62, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.47, y: -2.5, z: 0}
   m_LocalScale: {x: 1.45, y: 1.45, z: 1}
   m_Children:
   - {fileID: 4190242578526316}
@@ -179,6 +179,8 @@ MonoBehaviour:
   groundMoveSpeed: 4
   airMoveSpeed: 2
   jumpMultiplier: 430
+  ability1Cooldown: 1
+  ability2Cooldown: 5
   pulseMag: 1000
 --- !u!212 &212180410316215664
 SpriteRenderer:
