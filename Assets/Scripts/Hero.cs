@@ -19,9 +19,9 @@ public abstract class Hero : MonoBehaviour
         bool secondAbilityKey = Input.GetKeyDown(KeyCode.LeftShift);
         bool ultimateKey = Input.GetKeyDown(KeyCode.Q);
 
-        if (firstAbilityKey) this.Ability1();
-        if (secondAbilityKey) this.Ability2();
-        if (ultimateKey) this.Ultimate();
+        if (firstAbilityKey) StartCoroutine(Ability1());
+        if (secondAbilityKey) StartCoroutine(Ability2());
+        if (ultimateKey) StartCoroutine(Ultimate());
     }
 
 
@@ -30,8 +30,10 @@ public abstract class Hero : MonoBehaviour
     protected abstract void Move(bool isLeft);
 
     // Abilities behaviors
-    protected abstract void Ability1();
-    protected abstract void Ability2();
-    protected abstract void Ultimate();
+    protected abstract IEnumerator Ability1();
+    protected abstract IEnumerator Ability2();
+    protected abstract IEnumerator Ultimate();
     protected abstract IEnumerator StartCooldown(int ability);
+    protected abstract IEnumerator StartPassiveUltGen();
+    public abstract float GetUltCharge();
 }
