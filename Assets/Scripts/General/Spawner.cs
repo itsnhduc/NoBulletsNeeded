@@ -21,7 +21,7 @@ public class Spawner : MonoBehaviour
     {
 		// Spawn prefab
         GameObject curHero = Instantiate(hero, position, new Quaternion());
-		curHero.name.Replace("(Clone)", string.Empty);
+		curHero.name = curHero.name.Replace("(Clone)", string.Empty);
         curHero.GetComponent<Hero>().SetPlayer(playerNumber);
         curHero.transform.parent = GameObject.Find("Heroes").transform;
 		if (!_spawnedHeroes.Contains(curHero.name))
