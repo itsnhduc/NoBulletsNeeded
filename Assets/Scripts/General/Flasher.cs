@@ -16,7 +16,6 @@ public class Flasher : MonoBehaviour {
 	}
 
 	IEnumerator StartFlash() {
-		print(name);
 		_sr.enabled = true;
 		yield return new WaitForSeconds(interval);
 		_sr.enabled = false;

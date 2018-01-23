@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 114507538743135694}
   m_Layer: 0
   m_Name: Adam
-  m_TagString: Untagged
+  m_TagString: Hero
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -239,7 +239,7 @@ MonoBehaviour:
   pulseCooldown: 1
   orbSpeed: 80
   pulseMag: 800
-  passiveUltGen: 100
+  passiveUltGen: 1
 --- !u!114 &114910474740965870
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -265,7 +265,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pullMag: 800
   pushMag: 1500
-  centerDistance: 0.5
   duration: 5
 --- !u!212 &212354758787805708
 SpriteRenderer:

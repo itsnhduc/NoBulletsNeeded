@@ -11,7 +11,7 @@ public class AdamSurge : MonoBehaviour
     public float duration;
 	
 	private SpriteRenderer _sr;
-    private readonly List<string> _affected = new List<string> { "Interactive" };
+    private readonly List<string> _affected = new List<string> { "Hero", "Interactive" };
 	private Action _callBack;
 	private float _curPullMag = 0;
 	private List<GameObject> _stuckObjs = new List<GameObject>();

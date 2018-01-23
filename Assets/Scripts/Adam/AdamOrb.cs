@@ -6,7 +6,7 @@ using UnityEngine;
 public class AdamOrb : MonoBehaviour
 {
     public float pullMag;
-    private readonly List<string> _affected = new List<string> { "Interactive" };
+    private readonly List<string> _affected = new List<string> { "Hero", "Interactive" };
     private List<GameObject> _inRangePool = new List<GameObject>();
 
     void OnTriggerEnter2D(Collider2D other)

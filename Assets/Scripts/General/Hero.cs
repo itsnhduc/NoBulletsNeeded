@@ -3,27 +3,35 @@ using UnityEngine;
 
 public abstract class Hero : MonoBehaviour
 {
+    private int _playerNumber = 0;
+    
+    private PlayerInput _input;
 
     void Update()
     {
         // Movements input
-        bool jumpKey = Input.GetKey(KeyCode.W);
-        bool leftKey = Input.GetKey(KeyCode.A);
-        bool rightKey = Input.GetKey(KeyCode.D);
+        bool jumpKey = Input.GetKey(_input.up);
+        bool leftKey = Input.GetKey(_input.left);
+        bool rightKey = Input.GetKey(_input.right);
 
-        if (jumpKey) this.Jump();
-        if (leftKey || rightKey) this.Move(leftKey);
+        if (jumpKey) Jump();
+        if (leftKey || rightKey) Move(leftKey);
 
         // Abilities input
-        bool firstAbilityKey = Input.GetKeyDown(KeyCode.E);
-        bool secondAbilityKey = Input.GetKeyDown(KeyCode.LeftShift);
-        bool ultimateKey = Input.GetKeyDown(KeyCode.Q);
+        bool firstAbilityKey = Input.GetKeyDown(_input.a);
+        bool secondAbilityKey = Input.GetKeyDown(_input.b);
+        bool ultimateKey = Input.GetKeyDown(_input.c);
 
         if (firstAbilityKey) StartCoroutine(Ability1());
         if (secondAbilityKey) StartCoroutine(Ability2());
         if (ultimateKey) StartCoroutine(Ultimate());
     }
 
+    public void SetPlayer(int playerNumber)
+    {
+        _playerNumber = playerNumber;
+        _input = InputConfig.GetPlayerInput(_playerNumber);
+    }
 
     // Movements behaviors
     protected abstract void Jump();

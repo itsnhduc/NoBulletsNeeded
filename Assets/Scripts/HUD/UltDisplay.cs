@@ -8,12 +8,20 @@ public class UltDisplay : MonoBehaviour
 
     public GameObject ultTick;
     public GameObject ultChargeMeter;
-    public GameObject character;
+    private GameObject _hero;
+
+    public void SetHero(GameObject character)
+	{
+		_hero = character;
+	}
 
     void Update()
     {
-        float ultCharge = character.GetComponent<Hero>().GetUltCharge();
-		ultChargeMeter.GetComponent<Slider>().value = ultCharge;
-		ultTick.GetComponent<Image>().enabled = ultCharge >= 100f;
+        if (_hero)
+        {
+            float ultCharge = _hero.GetComponent<Hero>().GetUltCharge();
+            ultChargeMeter.GetComponent<Slider>().value = ultCharge;
+            ultTick.GetComponent<Image>().enabled = ultCharge >= 100f;
+        }
     }
 }

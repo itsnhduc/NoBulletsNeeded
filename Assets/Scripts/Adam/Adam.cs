@@ -22,7 +22,7 @@ public class Adam : Hero
     // Movements
     private Rigidbody2D _rb;
     private readonly List<string> _jumpable = new List<string> { "Ground" };
-    private readonly List<string> _affected = new List<string> { "Interactive" };
+    private readonly List<string> _affected = new List<string> { "Hero", "Interactive" };
     private bool _isGrounded = false;
     private bool _hasJumped = false;
 
