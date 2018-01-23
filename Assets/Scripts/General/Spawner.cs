@@ -8,7 +8,7 @@ public class Spawner : MonoBehaviour
     [Header("Heroes")]
     public GameObject Adam;
 
-	private List<string> _spawnedHeroes = new List<string>();
+    private List<string> _spawnedHeroes = new List<string>();
 
     void Start()
     {
@@ -19,26 +19,26 @@ public class Spawner : MonoBehaviour
 
     public void SpawnHero(int playerNumber, GameObject hero, Vector2 position)
     {
-		// Spawn prefab
+        // Spawn prefab
         GameObject curHero = Instantiate(hero, position, new Quaternion());
-		curHero.name = curHero.name.Replace("(Clone)", string.Empty);
+        curHero.name = curHero.name.Replace("(Clone)", string.Empty);
         curHero.GetComponent<Hero>().SetPlayer(playerNumber);
         curHero.transform.parent = GameObject.Find("Heroes").transform;
-		if (!_spawnedHeroes.Contains(curHero.name))
-		{
-			_spawnedHeroes.Add(curHero.name);
-		}
-		else
-		{
+        if (!_spawnedHeroes.Contains(curHero.name))
+        {
+            _spawnedHeroes.Add(curHero.name);
+        }
+        else
+        {
             Color newColor = new Color(
                 Random.Range(0, 1f),
                 Random.Range(0, 1f),
                 Random.Range(0, 1f)
             );
-			curHero.GetComponent<SpriteRenderer>().color = newColor;
-		}
+            curHero.GetComponent<SpriteRenderer>().color = newColor;
+        }
 
-		// Configure HUD
-		GameObject.Find("Player" + playerNumber + "Stat").GetComponent<UltDisplay>().SetHero(curHero);
+        // Configure HUD
+        GameObject.Find("Player" + playerNumber + "Stat").GetComponent<UltDisplay>().SetHero(curHero);
     }
 }

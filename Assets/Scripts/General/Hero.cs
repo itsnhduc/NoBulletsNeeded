@@ -4,7 +4,7 @@ using UnityEngine;
 public abstract class Hero : MonoBehaviour
 {
     private int _playerNumber = 0;
-    
+
     private PlayerInput _input;
 
     void Update()

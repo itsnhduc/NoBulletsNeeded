@@ -11,9 +11,9 @@ public class UltDisplay : MonoBehaviour
     private GameObject _hero;
 
     public void SetHero(GameObject character)
-	{
-		_hero = character;
-	}
+    {
+        _hero = character;
+    }
 
     void Update()
     {

@@ -131,7 +131,8 @@ public class Adam : Hero
         _ultCharge = 0;
         float originalMass = _rb.mass;
         _rb.mass = 1000;
-        surge.GetComponent<AdamSurge>().Activate(() => {
+        surge.GetComponent<AdamSurge>().Activate(() =>
+        {
             StartCoroutine("StartPassiveUltGen");
             _rb.mass = originalMass;
         });

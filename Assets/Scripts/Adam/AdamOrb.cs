@@ -27,11 +27,12 @@ public class AdamOrb : MonoBehaviour
 
     public void Activate()
     {
-		_inRangePool.ForEach(obj => {
-			Vector2 diff = transform.position - obj.transform.position;
-			obj.GetComponent<Rigidbody2D>().AddForce(diff.normalized * pullMag);
-		});
-		Destroy(gameObject);
+        _inRangePool.ForEach(obj =>
+        {
+            Vector2 diff = transform.position - obj.transform.position;
+            obj.GetComponent<Rigidbody2D>().AddForce(diff.normalized * pullMag);
+        });
+        Destroy(gameObject);
     }
 
 }
