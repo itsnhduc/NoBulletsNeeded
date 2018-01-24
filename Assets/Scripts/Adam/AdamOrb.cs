@@ -6,6 +6,7 @@ using UnityEngine;
 public class AdamOrb : MonoBehaviour
 {
     public float pullMag;
+    public int pullDamage;
     private readonly List<string> _affected = new List<string> { "Hero", "Interactive" };
     private List<GameObject> _inRangePool = new List<GameObject>();
 
@@ -31,6 +32,8 @@ public class AdamOrb : MonoBehaviour
         {
             Vector2 diff = transform.position - obj.transform.position;
             obj.GetComponent<Rigidbody2D>().AddForce(diff.normalized * pullMag);
+            Mortality mort = obj.GetComponent<Mortality>();
+            if (mort) mort.AlterHealth(-pullDamage, gameObject.transform.parent.gameObject);
         });
         Destroy(gameObject);
     }

@@ -102,7 +102,7 @@ public class Adam : Hero
         }
         else if (!_onCooldown[0])
         {
-            GameObject orb = Instantiate(orbPrefab, transform.position, new Quaternion());
+            GameObject orb = Instantiate(orbPrefab, transform);
             orb.name = "AdamOrb";
             Vector2 dir = _rb.transform.rotation.y == 0 ? Vector2.right : Vector2.left;
             orb.GetComponent<Rigidbody2D>().AddForce(dir * orbSpeed);

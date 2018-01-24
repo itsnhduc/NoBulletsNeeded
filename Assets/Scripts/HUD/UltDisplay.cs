@@ -8,7 +8,7 @@ public class UltDisplay : MonoBehaviour
 
     public GameObject ultTick;
     public GameObject ultChargeMeter;
-    
+
     private GameObject _hero;
 
     public void SetHero(GameObject character)

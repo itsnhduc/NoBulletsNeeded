@@ -62,7 +62,7 @@ public class AdamSurge : MonoBehaviour
                 Vector2 dir = obj.transform.position - transform.position;
                 obj.GetComponent<Rigidbody2D>().AddForce(dir * pushMag);
                 Mortality mort = obj.GetComponent<Mortality>();
-                if (mort) mort.AlterHealth(-pushDamage, gameObject);
+                if (mort) mort.AlterHealth(-pushDamage, gameObject.transform.parent.gameObject);
             }
         });
         _stuckObjs.Clear();
@@ -79,7 +79,7 @@ public class AdamSurge : MonoBehaviour
                 if (obj)
                 {
                     Mortality mort = obj.GetComponent<Mortality>();
-                    if (mort) mort.AlterHealth(-pullDamage, gameObject);
+                    if (mort) mort.AlterHealth(-pullDamage, gameObject.transform.parent.gameObject);
                 }
             });
         }

@@ -6,10 +6,11 @@ using UnityEngine;
 public class Mortality : MonoBehaviour
 {
     public int maxHealth;
-	public float ultChargePerDamage;
+    public float ultChargePerDamage;
     public int health { get; private set; }
+    private static int minTimePass = 5;
 
-    private List<HealthDealer> _dealerList = new List<HealthDealer>();
+    private List<HealthExchange> _dealerList = new List<HealthExchange>();
 
     void Start()
     {
@@ -18,25 +19,43 @@ public class Mortality : MonoBehaviour
 
     public void AlterHealth(int offset, GameObject dealer)
     {
-		// update health
+        // update health
         health += offset;
 
-		// save record
-        _dealerList.Add(new HealthDealer
+        // save record
+        HealthExchange curExchange = new HealthExchange
         {
-			timestamp = DateTime.Now,
-			dealer = dealer,
-			offset = offset,
-			isFinalBlow = health <= 0
-        });
-		
-		// give ult charge
-		GameObject dealerHero = dealer.tag == "Hero" ? dealer : dealer.transform.parent.gameObject;
-		dealerHero.GetComponent<Hero>().GainUltCharge(Math.Abs(offset) * ultChargePerDamage);
+            timestamp = DateTime.Now,
+            dealer = dealer,
+            receiver = gameObject,
+            offset = offset,
+            isFinalBlow = health <= 0,
+            isSelf = false
+        };
+        bool wasHurtRecently = false;
+        if (dealer.tag == "KillZone" && _dealerList.Count >= 1)
+        {
+            HealthExchange lastExchange = _dealerList[_dealerList.Count - 1];
+            int timePassed = (DateTime.Now - lastExchange.timestamp).Seconds;
+            if (timePassed < minTimePass)
+            {
+                curExchange.dealer = lastExchange.dealer;
+                wasHurtRecently = true;
+            }
+        }
+        if (!wasHurtRecently) curExchange.isSelf = true;
+        _dealerList.Add(curExchange);
 
-		// after effect
+        // give ult charge
+        GameObject dealerHero;
+        if (dealer.tag == "Hero") dealerHero = dealer;
+        else dealerHero = null;
+        if (dealerHero) dealerHero.GetComponent<Hero>().GainUltCharge(Math.Abs(offset) * ultChargePerDamage);
+
+        // after effect
         if (health > maxHealth) health = maxHealth;
-        if (health <= 0) StartCoroutine(TimedDestroy());
+        if (health < 0) health = 0;
+        if (health == 0) StartCoroutine(TimedDestroy());
     }
 
     public void Kill(GameObject dealer)
@@ -44,17 +63,14 @@ public class Mortality : MonoBehaviour
         AlterHealth(-maxHealth, dealer);
     }
 
+    public HealthExchange GetKiller()
+    {
+        return _dealerList.Find(dealer => dealer.isFinalBlow);
+    }
+
     IEnumerator TimedDestroy()
     {
         yield return new WaitForEndOfFrame();
         Destroy(gameObject);
     }
-}
-
-public class HealthDealer
-{
-    public DateTime timestamp { get; set; }
-    public GameObject dealer { get; set; }
-    public int offset { get; set; }
-    public bool isFinalBlow { get; set; }
 }
