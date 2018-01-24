@@ -17,6 +17,7 @@ public class Adam : Hero
     public float pulseCooldown;
     public float orbSpeed;
     public float pulseMag;
+    public int pulseDamage;
     public float passiveUltGen;
 
     // Movements
@@ -118,6 +119,8 @@ public class Adam : Hero
             {
                 Vector2 diff = obj.transform.position - transform.position;
                 obj.GetComponent<Rigidbody2D>().AddForce(diff.normalized * pulseMag);
+                Mortality mort = obj.GetComponent<Mortality>();
+                if (mort) mort.AlterHealth(-pulseDamage, gameObject);
             });
             pulse.GetComponent<Flasher>().Flash();
             StartCoroutine(StartCooldown(1));
@@ -127,15 +130,18 @@ public class Adam : Hero
 
     protected override IEnumerator Ultimate()
     {
-        StopCoroutine("StartPassiveUltGen");
-        _ultCharge = 0;
-        float originalMass = _rb.mass;
-        _rb.mass = 1000;
-        surge.GetComponent<AdamSurge>().Activate(() =>
+        if (_ultCharge >= 100)
         {
-            StartCoroutine("StartPassiveUltGen");
-            _rb.mass = originalMass;
-        });
+            StopCoroutine("StartPassiveUltGen");
+            _ultCharge = 0;
+            float originalMass = _rb.mass;
+            _rb.mass = 1000;
+            surge.GetComponent<AdamSurge>().Activate(() =>
+            {
+                StartCoroutine("StartPassiveUltGen");
+                _rb.mass = originalMass;
+            });
+        }
         yield return null;
     }
 
@@ -153,6 +159,11 @@ public class Adam : Hero
             yield return new WaitForSeconds(1);
             if (_ultCharge <= 100f) _ultCharge += passiveUltGen;
         }
+    }
+
+    public override void GainUltCharge(float amount)
+    {
+        _ultCharge += amount;
     }
 
     public override float GetUltCharge()

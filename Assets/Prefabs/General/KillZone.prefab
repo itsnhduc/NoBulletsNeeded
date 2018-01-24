@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114287085426712678}
   m_Layer: 0
   m_Name: KillZone
-  m_TagString: Untagged
+  m_TagString: KillZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

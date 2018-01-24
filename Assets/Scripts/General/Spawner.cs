@@ -30,6 +30,7 @@ public class Spawner : MonoBehaviour
         }
         else
         {
+            curHero.name += " v2";
             Color newColor = new Color(
                 Random.Range(0, 1f),
                 Random.Range(0, 1f),
@@ -39,6 +40,8 @@ public class Spawner : MonoBehaviour
         }
 
         // Configure HUD
-        GameObject.Find("Player" + playerNumber + "Stat").GetComponent<UltDisplay>().SetHero(curHero);
+        GameObject stat = GameObject.Find("Player" + playerNumber + "Stat");
+        stat.GetComponent<UltDisplay>().SetHero(curHero);
+        stat.GetComponent<HealthDisplay>().SetHero(curHero);
     }
 }

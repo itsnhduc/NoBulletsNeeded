@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 61015516235884512}
   - component: {fileID: 58294079746852438}
   - component: {fileID: 114507538743135694}
+  - component: {fileID: 114255482913893080}
   m_Layer: 0
   m_Name: Adam
   m_TagString: Hero
@@ -218,6 +219,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114255482913893080
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1139146177787764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee5b1a8d3b6c89c4db98877d80074b8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  ultChargePerDamage: 2
 --- !u!114 &114507538743135694
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -239,6 +253,7 @@ MonoBehaviour:
   pulseCooldown: 1
   orbSpeed: 80
   pulseMag: 800
+  pulseDamage: 2
   passiveUltGen: 1
 --- !u!114 &114910474740965870
 MonoBehaviour:
@@ -266,6 +281,9 @@ MonoBehaviour:
   pullMag: 800
   pushMag: 1500
   duration: 5
+  pullDamage: 5
+  pushDamage: 20
+  damageInterval: 0.5
 --- !u!212 &212354758787805708
 SpriteRenderer:
   m_ObjectHideFlags: 1

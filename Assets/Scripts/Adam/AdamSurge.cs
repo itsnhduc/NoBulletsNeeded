@@ -9,6 +9,9 @@ public class AdamSurge : MonoBehaviour
     public float pullMag;
     public float pushMag;
     public float duration;
+    public int pullDamage;
+    public int pushDamage;
+    public float damageInterval;
 
     private SpriteRenderer _sr;
     private readonly List<string> _affected = new List<string> { "Hero", "Interactive" };
@@ -19,6 +22,7 @@ public class AdamSurge : MonoBehaviour
     void Start()
     {
         _sr = GetComponent<SpriteRenderer>();
+        StartCoroutine(DealDamage());
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -53,9 +57,31 @@ public class AdamSurge : MonoBehaviour
         _sr.enabled = false;
         _stuckObjs.ForEach(obj =>
         {
-            Vector2 dir = obj.transform.position - transform.position;
-            obj.GetComponent<Rigidbody2D>().AddForce(dir * pushMag);
+            if (obj)
+            {
+                Vector2 dir = obj.transform.position - transform.position;
+                obj.GetComponent<Rigidbody2D>().AddForce(dir * pushMag);
+                Mortality mort = obj.GetComponent<Mortality>();
+                if (mort) mort.AlterHealth(-pushDamage, gameObject);
+            }
         });
+        _stuckObjs.Clear();
         _callBack();
+    }
+
+    IEnumerator DealDamage()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(damageInterval);
+            _stuckObjs.ForEach(obj =>
+            {
+                if (obj)
+                {
+                    Mortality mort = obj.GetComponent<Mortality>();
+                    if (mort) mort.AlterHealth(-pullDamage, gameObject);
+                }
+            });
+        }
     }
 }

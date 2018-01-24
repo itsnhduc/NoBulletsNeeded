@@ -43,5 +43,6 @@ public abstract class Hero : MonoBehaviour
     protected abstract IEnumerator Ultimate();
     protected abstract IEnumerator StartCooldown(int ability);
     protected abstract IEnumerator StartPassiveUltGen();
+    public abstract void GainUltCharge(float amount);
     public abstract float GetUltCharge();
 }
