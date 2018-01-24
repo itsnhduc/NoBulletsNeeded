@@ -32,18 +32,18 @@ public class Mortality : MonoBehaviour
             isFinalBlow = health <= 0,
             isSelf = false
         };
-        bool wasHurtRecently = false;
+        bool wasHurtByOther = false;
         if (dealer.tag == "KillZone" && _dealerList.Count >= 1)
         {
             HealthExchange lastExchange = _dealerList[_dealerList.Count - 1];
             int timePassed = (DateTime.Now - lastExchange.timestamp).Seconds;
-            if (timePassed < minTimePass)
+            if (timePassed < minTimePass && lastExchange.dealer.name != gameObject.name)
             {
                 curExchange.dealer = lastExchange.dealer;
-                wasHurtRecently = true;
+                wasHurtByOther = true;
             }
         }
-        if (!wasHurtRecently) curExchange.isSelf = true;
+        if (!wasHurtByOther) curExchange.isSelf = true;
         _dealerList.Add(curExchange);
 
         // give ult charge
