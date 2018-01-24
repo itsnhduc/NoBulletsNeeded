@@ -13,8 +13,8 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         // dev-only
-        SpawnHero(0, Adam, Vector2.zero);
-        SpawnHero(1, Adam, Vector2.right);
+        SpawnHero(0, Adam, new Vector2(-1, 5));
+        SpawnHero(1, Adam, new Vector2(1, 5));
     }
 
     public void SpawnHero(int playerNumber, GameObject hero, Vector2 position)

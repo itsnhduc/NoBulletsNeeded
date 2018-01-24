@@ -252,7 +252,7 @@ MonoBehaviour:
   orbCooldown: 5
   pulseCooldown: 1
   orbSpeed: 80
-  pulseMag: 800
+  pulseMag: 600
   pulseDamage: 2
   passiveUltGen: 1
 --- !u!114 &114910474740965870

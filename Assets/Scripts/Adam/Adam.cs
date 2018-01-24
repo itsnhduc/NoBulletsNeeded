@@ -77,6 +77,10 @@ public class Adam : Hero
         if (_isGrounded && !_hasJumped)
         {
             _hasJumped = true;
+            if (Mathf.Abs(_rb.velocity.x) > airMoveSpeed)
+            {
+                _rb.velocity = new Vector2(airMoveSpeed * Mathf.Sign(_rb.velocity.x), _rb.velocity.y);
+            }
             _rb.AddForce(Vector2.up * jumpMultiplier);
             _isGrounded = false;
         }
@@ -86,7 +90,11 @@ public class Adam : Hero
     {
         int dirSign = isLeft ? -1 : 1;
         float moveSpeed = _isGrounded ? groundMoveSpeed : airMoveSpeed;
-        _rb.velocity = new Vector2(moveSpeed * dirSign, _rb.velocity.y);
+        // only controllable while in slow speed
+        if (Mathf.Abs(_rb.velocity.x) <= moveSpeed)
+        {
+            _rb.velocity = new Vector2(dirSign * moveSpeed, _rb.velocity.y);
+        }
 
         Quaternion curRotation = _rb.transform.rotation;
         int yRotation = isLeft ? 180 : 0;
