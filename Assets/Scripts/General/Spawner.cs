@@ -24,6 +24,7 @@ public class Spawner : MonoBehaviour
         curHero.name = curHero.name.Replace("(Clone)", string.Empty);
         curHero.GetComponent<Hero>().SetPlayer(playerNumber);
         curHero.transform.parent = GameObject.Find("Heroes").transform;
+
         if (!_spawnedHeroes.Contains(curHero.name))
         {
             _spawnedHeroes.Add(curHero.name);
