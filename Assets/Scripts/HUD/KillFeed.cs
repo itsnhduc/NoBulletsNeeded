@@ -9,6 +9,7 @@ public class KillFeed : MonoBehaviour
 
     public GameObject killFeedLine;
     public int maxLineCount;
+    public float lineDuration;
     private List<HealthExchange> _lines = new List<HealthExchange>();
 
     void Update()
@@ -56,8 +57,15 @@ public class KillFeed : MonoBehaviour
                             element.GetComponentInChildren<Text>().text = exchange.receiver.name;
                         }
                     }
+                    StartCoroutine(TimeDestroyLine(curLine));
                 }
             }
         }
+    }
+
+    IEnumerator TimeDestroyLine(GameObject line)
+    {
+        yield return new WaitForSeconds(lineDuration);
+        Destroy(line);
     }
 }

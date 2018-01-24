@@ -1790,6 +1790,11 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114341060974303606, guid: 27fadfbce9aa91643a40f807dfaabf97,
+        type: 2}
+      propertyPath: lineDuration
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 27fadfbce9aa91643a40f807dfaabf97, type: 2}
   m_IsPrefabParent: 0
@@ -2192,6 +2197,11 @@ Prefab:
     - target: {fileID: 1665128223086968, guid: e2822b1d6292fc243a209da824687c82, type: 2}
       propertyPath: m_Name
       value: GroundGrass_Single (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 212434654924047642, guid: e2822b1d6292fc243a209da824687c82,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e2822b1d6292fc243a209da824687c82, type: 2}
