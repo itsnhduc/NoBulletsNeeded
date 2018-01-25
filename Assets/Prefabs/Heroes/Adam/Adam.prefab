@@ -21,7 +21,9 @@ GameObject:
   - component: {fileID: 4063477508802632}
   - component: {fileID: 212373507981946952}
   - component: {fileID: 95217959924672592}
+  - component: {fileID: 58398708115367444}
   - component: {fileID: 114910474740965870}
+  - component: {fileID: 114350374889902574}
   m_Layer: 0
   m_Name: Pulse
   m_TagString: Untagged
@@ -40,7 +42,6 @@ GameObject:
   - component: {fileID: 212714096880184382}
   - component: {fileID: 50259046925266874}
   - component: {fileID: 61015516235884512}
-  - component: {fileID: 58294079746852438}
   - component: {fileID: 114507538743135694}
   - component: {fileID: 114255482913893080}
   m_Layer: 0
@@ -62,6 +63,7 @@ GameObject:
   - component: {fileID: 95027144073087208}
   - component: {fileID: 114910786768084956}
   - component: {fileID: 58989232605566064}
+  - component: {fileID: 114942429243155256}
   m_Layer: 0
   m_Name: Surge
   m_TagString: Untagged
@@ -130,12 +132,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &58294079746852438
+--- !u!58 &58398708115367444
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1139146177787764}
+  m_GameObject: {fileID: 1093631982387650}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -231,7 +233,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  ultChargePerDamage: 2
+  ultChargePerDamage: 1
+--- !u!114 &114350374889902574
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1093631982387650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d1f3f6bcabd97740bf71dfc29da16f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pulseMag: 600
+  pulseDamage: 5
 --- !u!114 &114507538743135694
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -252,9 +267,6 @@ MonoBehaviour:
   pulse: {fileID: 1093631982387650}
   surge: {fileID: 1246512489944108}
   orbPrefab: {fileID: 1689176732733050, guid: 80e2a9e517bb91d4a85cf6e286b4f729, type: 2}
-  orbSpeed: 80
-  pulseMag: 600
-  pulseDamage: 2
 --- !u!114 &114910474740965870
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -284,6 +296,17 @@ MonoBehaviour:
   pullDamage: 5
   pushDamage: 20
   damageInterval: 0.5
+--- !u!114 &114942429243155256
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1246512489944108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7750baf7f9fa764c83a8f7fe777f823, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212354758787805708
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -316,7 +339,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 925275715
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: d9277737a0bb75042a46ad31364bccd6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -404,7 +427,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 925275715
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9f626870878e2bc49bc71f94a1b4c4d1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

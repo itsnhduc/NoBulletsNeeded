@@ -7,14 +7,15 @@ public class Spawner : MonoBehaviour
 
     [Header("Heroes")]
     public GameObject Adam;
+    public GameObject Snow;
 
     private List<string> _spawnedHeroes = new List<string>();
 
     void Start()
     {
         // dev-only
-        SpawnHero(0, Adam, new Vector2(-1, 5));
-        SpawnHero(1, Adam, new Vector2(1, 5));
+        SpawnHero(1, Adam, new Vector2(-1, 5));
+        SpawnHero(0, Snow, new Vector2(1, 5));
     }
 
     public void SpawnHero(int playerNumber, GameObject hero, Vector2 position)

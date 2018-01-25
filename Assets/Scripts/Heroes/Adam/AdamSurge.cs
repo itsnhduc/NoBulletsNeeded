@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AdamSurge : MonoBehaviour
+public class AdamSurge : HeroAbility
 {
 
     public float pullMag;
@@ -22,6 +22,7 @@ public class AdamSurge : MonoBehaviour
     void Start()
     {
         _sr = GetComponent<SpriteRenderer>();
+        SetHero(transform.parent.gameObject);
         StartCoroutine(DealDamage());
     }
 
@@ -62,7 +63,7 @@ public class AdamSurge : MonoBehaviour
                 Vector2 dir = obj.transform.position - transform.position;
                 obj.GetComponent<Rigidbody2D>().AddForce(dir * pushMag);
                 Mortality mort = obj.GetComponent<Mortality>();
-                if (mort) mort.AlterHealth(-pushDamage, gameObject.transform.parent.gameObject);
+                if (mort) mort.AlterHealth(-pushDamage, parentHero);
             }
         });
         _stuckObjs.Clear();
@@ -79,7 +80,7 @@ public class AdamSurge : MonoBehaviour
                 if (obj)
                 {
                     Mortality mort = obj.GetComponent<Mortality>();
-                    if (mort) mort.AlterHealth(-pullDamage, gameObject.transform.parent.gameObject);
+                    if (mort) mort.AlterHealth(-pullDamage, parentHero);
                 }
             });
         }

@@ -14,7 +14,7 @@ public abstract class Hero : MonoBehaviour
     public float ability1Cooldown;
     public float ability2Cooldown;
     public float passiveUltGen;
-    
+
     // SHARED ATTRIBUTES
     // Identity
     protected Rigidbody2D rb;
@@ -24,6 +24,7 @@ public abstract class Hero : MonoBehaviour
     private int _playerNumber = 0;
     private PlayerInput _input;
     // Movements
+    private bool _isControllable = true;
     private readonly List<string> _jumpable = new List<string> { "Ground" };
     private bool _isGrounded = false;
     private bool _hasJumped = false;
@@ -32,9 +33,6 @@ public abstract class Hero : MonoBehaviour
     private bool[] _onCooldown = { false, false }; // { orb, pulse }
 
     // ABSTRACT HERO-BASED METHODS
-    // Monobehavior
-    protected abstract IEnumerator HandleTriggerStay(Collider2D other, Action callback);
-    protected abstract IEnumerator HandleTriggerExit(Collider2D other, Action callback);
     // Abilities
     protected abstract IEnumerator Ability1(bool onCooldown, Action callback);
     protected abstract IEnumerator Ability2(bool onCooldown, Action callback);
@@ -48,22 +46,25 @@ public abstract class Hero : MonoBehaviour
     }
     void Update()
     {
-        // Movements input
-        bool jumpKey = Input.GetKey(_input.up);
-        bool leftKey = Input.GetKey(_input.left);
-        bool rightKey = Input.GetKey(_input.right);
+        if (_isControllable)
+        {
+            // Movements input
+            bool jumpKey = Input.GetKey(_input.up);
+            bool leftKey = Input.GetKey(_input.left);
+            bool rightKey = Input.GetKey(_input.right);
 
-        if (jumpKey) _BaseJump();
-        if (leftKey || rightKey) _BaseMove(leftKey);
+            if (jumpKey) _BaseJump();
+            if (leftKey || rightKey) _BaseMove(leftKey);
 
-        // Abilities input
-        bool firstAbilityKey = Input.GetKeyDown(_input.a);
-        bool secondAbilityKey = Input.GetKeyDown(_input.b);
-        bool ultimateKey = Input.GetKeyDown(_input.c);
+            // Abilities input
+            bool firstAbilityKey = Input.GetKeyDown(_input.a);
+            bool secondAbilityKey = Input.GetKeyDown(_input.b);
+            bool ultimateKey = Input.GetKeyDown(_input.c);
 
-        if (firstAbilityKey) _BaseAbility(0);
-        if (secondAbilityKey) _BaseAbility(1);
-        if (ultimateKey) _BaseUltimate();
+            if (firstAbilityKey) _BaseAbility(0);
+            if (secondAbilityKey) _BaseAbility(1);
+            if (ultimateKey) _BaseUltimate();
+        }
     }
     void OnCollisionEnter2D(Collision2D other)
     {
@@ -79,14 +80,6 @@ public abstract class Hero : MonoBehaviour
         {
             _isGrounded = false;
         }
-    }
-    void OnTriggerStay2D(Collider2D other)
-    {
-        StartCoroutine(HandleTriggerStay(other, () => {}));
-    }
-    void OnTriggerExit2D(Collider2D other)
-    {
-        StartCoroutine(HandleTriggerExit(other, () => {}));
     }
 
     // INTERNAL COROUTINES
@@ -146,8 +139,9 @@ public abstract class Hero : MonoBehaviour
         if (_ultCharge >= 100)
         {
             StopCoroutine("_StartPassiveUltGen");
-            _ultCharge = 0;
-            StartCoroutine(Ultimate(_ultCharge, () => {
+            StartCoroutine(Ultimate(_ultCharge, () =>
+            {
+                _ultCharge = 0;
                 StartCoroutine("_StartPassiveUltGen");
             }));
         }
@@ -159,6 +153,11 @@ public abstract class Hero : MonoBehaviour
     {
         _playerNumber = playerNumber;
         _input = InputConfig.GetPlayerInput(_playerNumber);
+    }
+    // Movement
+    public void SetControllable(bool controlState)
+    {
+        _isControllable = controlState;
     }
     // Abilities
     public void GainUltCharge(float amount)

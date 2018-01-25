@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class AdamOrb : MonoBehaviour
+public class AdamOrb : HeroAbility
 {
     public float pullMag;
     public int pullDamage;
@@ -33,7 +33,7 @@ public class AdamOrb : MonoBehaviour
             Vector2 diff = transform.position - obj.transform.position;
             obj.GetComponent<Rigidbody2D>().AddForce(diff.normalized * pullMag);
             Mortality mort = obj.GetComponent<Mortality>();
-            if (mort) mort.AlterHealth(-pullDamage, gameObject.transform.parent.gameObject);
+            if (mort) mort.AlterHealth(-pullDamage, parentHero);
         });
         Destroy(gameObject);
     }

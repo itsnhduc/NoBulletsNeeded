@@ -1492,6 +1492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Adam: {fileID: 1139146177787764, guid: a3c987dfc27d3654fa129c217a52d54d, type: 2}
+  Snow: {fileID: 1751881158525352, guid: 0b13ebb92f75a174e97931a7f5bf5b7c, type: 2}
 --- !u!114 &114170812136060196
 MonoBehaviour:
   m_ObjectHideFlags: 1

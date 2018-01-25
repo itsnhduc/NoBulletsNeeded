@@ -286,10 +286,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 4103616919471588, guid: 8ea093cc6b38f714f8b74ed808c5b03e, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8ea093cc6b38f714f8b74ed808c5b03e, type: 2}
   m_IsPrefabParent: 0
@@ -420,10 +416,6 @@ Prefab:
       propertyPath: m_Name
       value: Stone_Concave_8 (12)
       objectReference: {fileID: 0}
-    - target: {fileID: 4142813900376492, guid: 653099312dcae72468cceba34edb6bd9, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 653099312dcae72468cceba34edb6bd9, type: 2}
   m_IsPrefabParent: 0
@@ -552,6 +544,22 @@ Prefab:
     - target: {fileID: 4264017019764268, guid: 840c7379ce7258b45874a583125f138e, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264017019764268, guid: 840c7379ce7258b45874a583125f138e, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264017019764268, guid: 840c7379ce7258b45874a583125f138e, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264017019764268, guid: 840c7379ce7258b45874a583125f138e, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264017019764268, guid: 840c7379ce7258b45874a583125f138e, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4264017019764268, guid: 840c7379ce7258b45874a583125f138e, type: 2}
       propertyPath: m_RootOrder
