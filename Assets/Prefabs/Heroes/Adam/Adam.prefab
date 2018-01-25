@@ -246,15 +246,15 @@ MonoBehaviour:
   groundMoveSpeed: 4
   airMoveSpeed: 2
   jumpMultiplier: 380
+  ability1Cooldown: 5
+  ability2Cooldown: 1
+  passiveUltGen: 1
   pulse: {fileID: 1093631982387650}
   surge: {fileID: 1246512489944108}
   orbPrefab: {fileID: 1689176732733050, guid: 80e2a9e517bb91d4a85cf6e286b4f729, type: 2}
-  orbCooldown: 5
-  pulseCooldown: 1
   orbSpeed: 80
   pulseMag: 600
   pulseDamage: 2
-  passiveUltGen: 1
 --- !u!114 &114910474740965870
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,123 +6,62 @@ using UnityEngine;
 
 public class Adam : Hero
 {
-    [Header("Movements")]
-    public float groundMoveSpeed;
-    public float airMoveSpeed;
-    public float jumpMultiplier;
-    [Header("Abilities")]
+    // INSPECTOR ATTRIBUTES
+    [Header("Hero-based")]
     public GameObject pulse;
     public GameObject surge;
     public GameObject orbPrefab;
-    public float orbCooldown;
-    public float pulseCooldown;
     public float orbSpeed;
     public float pulseMag;
     public int pulseDamage;
-    public float passiveUltGen;
 
+    // INTERNAL ATTRIBUTES
     // Movements
-    private Rigidbody2D _rb;
-    private readonly List<string> _jumpable = new List<string> { "Ground" };
     private readonly List<string> _affected = new List<string> { "Hero", "Interactive" };
-    private bool _isGrounded = false;
-    private bool _hasJumped = false;
-
-
     // Abilities
-    private float _ultCharge = 0;
     private List<GameObject> _inRangeObjs = new List<GameObject>();
-    private bool[] _onCooldown = { false, false }; // { orb, pulse }
 
-    void Start()
-    {
-        _rb = GetComponent<Rigidbody2D>();
-        StartCoroutine("StartPassiveUltGen");
-    }
-
-    void OnCollisionEnter2D(Collision2D other)
-    {
-        if (_jumpable.Contains(other.collider.tag))
-        {
-            _isGrounded = true;
-            _hasJumped = false;
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D other)
-    {
-        if (_jumpable.Contains(other.collider.tag) && Mathf.Abs(_rb.velocity.y) > 0.001f)
-        {
-            _isGrounded = false;
-        }
-    }
-
-    void OnTriggerStay2D(Collider2D other)
+    // EXTENDED HERO-BASED METHODS
+    // Monobehavior
+    protected override IEnumerator HandleTriggerStay(Collider2D other, Action callback)
     {
         if (_affected.Contains(other.tag) && !_inRangeObjs.Contains(other.gameObject))
         {
             _inRangeObjs.Add(other.gameObject);
         }
+        callback();
+        yield return null;
     }
-
-    void OnTriggerExit2D(Collider2D other)
+    protected override IEnumerator HandleTriggerExit(Collider2D other, Action callback)
     {
         if (_affected.Contains(other.tag) && _inRangeObjs.Contains(other.gameObject))
         {
             _inRangeObjs.Remove(other.gameObject);
         }
+        callback();
+        yield return null;
     }
-
-    protected override void Jump()
-    {
-        if (_isGrounded && !_hasJumped)
-        {
-            _hasJumped = true;
-            if (Mathf.Abs(_rb.velocity.x) > airMoveSpeed)
-            {
-                _rb.velocity = new Vector2(airMoveSpeed * Mathf.Sign(_rb.velocity.x), _rb.velocity.y);
-            }
-            _rb.AddForce(Vector2.up * jumpMultiplier);
-            _isGrounded = false;
-        }
-    }
-
-    protected override void Move(bool isLeft)
-    {
-        int dirSign = isLeft ? -1 : 1;
-        float moveSpeed = _isGrounded ? groundMoveSpeed : airMoveSpeed;
-        // only controllable while in slow speed
-        if (Mathf.Abs(_rb.velocity.x) <= moveSpeed)
-        {
-            _rb.velocity = new Vector2(dirSign * moveSpeed, _rb.velocity.y);
-        }
-
-        Quaternion curRotation = _rb.transform.rotation;
-        int yRotation = isLeft ? 180 : 0;
-        _rb.transform.rotation = Quaternion.Euler(curRotation.x, yRotation, curRotation.z);
-    }
-
-    protected override IEnumerator Ability1()
+    // Abilities
+    protected override IEnumerator Ability1(bool onCooldown, Action callback)
     {
         GameObject curOrb = GameObject.Find("AdamOrb");
         if (curOrb)
         {
             curOrb.GetComponent<AdamOrb>().Activate();
         }
-        else if (!_onCooldown[0])
+        else if (!onCooldown)
         {
             GameObject orb = Instantiate(orbPrefab, transform);
             orb.name = "AdamOrb";
-            Vector2 dir = _rb.transform.rotation.y == 0 ? Vector2.right : Vector2.left;
+            Vector2 dir = rb.transform.rotation.y == 0 ? Vector2.right : Vector2.left;
             orb.GetComponent<Rigidbody2D>().AddForce(dir * orbSpeed);
-            StartCoroutine(StartCooldown(0));
+            callback();
         }
         yield return null;
     }
-
-    protected override IEnumerator Ability2()
+    protected override IEnumerator Ability2(bool onCooldown, Action callback)
     {
-        if (!_onCooldown[1])
+        if (!onCooldown)
         {
             _inRangeObjs.ForEach(obj =>
             {
@@ -131,51 +71,19 @@ public class Adam : Hero
                 if (mort) mort.AlterHealth(-pulseDamage, gameObject);
             });
             pulse.GetComponent<Flasher>().Flash();
-            StartCoroutine(StartCooldown(1));
+            callback();
         }
         yield return null;
     }
-
-    protected override IEnumerator Ultimate()
+    protected override IEnumerator Ultimate(float ultCharge, Action callback)
     {
-        if (_ultCharge >= 100)
+        float originalMass = rb.mass;
+        rb.mass = 1000;
+        surge.GetComponent<AdamSurge>().Activate(() =>
         {
-            StopCoroutine("StartPassiveUltGen");
-            _ultCharge = 0;
-            float originalMass = _rb.mass;
-            _rb.mass = 1000;
-            surge.GetComponent<AdamSurge>().Activate(() =>
-            {
-                StartCoroutine("StartPassiveUltGen");
-                _rb.mass = originalMass;
-            });
-        }
+            rb.mass = originalMass;
+            callback();
+        });
         yield return null;
-    }
-
-    protected override IEnumerator StartCooldown(int ability)
-    {
-        _onCooldown[ability] = true;
-        yield return new WaitForSeconds(ability == 0 ? orbCooldown : pulseCooldown);
-        _onCooldown[ability] = false;
-    }
-
-    protected override IEnumerator StartPassiveUltGen()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(1);
-            if (_ultCharge <= 100f) _ultCharge += passiveUltGen;
-        }
-    }
-
-    public override void GainUltCharge(float amount)
-    {
-        _ultCharge += amount;
-    }
-
-    public override float GetUltCharge()
-    {
-        return _ultCharge;
     }
 }
