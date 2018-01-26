@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 58451896521044974}
   - component: {fileID: 114350944179736950}
   - component: {fileID: 114646444869884642}
-  - component: {fileID: 114930978619911586}
   m_Layer: 0
   m_Name: AdamOrb
   m_TagString: Untagged
@@ -84,17 +83,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.15
---- !u!114 &114930978619911586
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1689176732733050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7750baf7f9fa764c83a8f7fe777f823, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &212754088336071960
 SpriteRenderer:
   m_ObjectHideFlags: 1
